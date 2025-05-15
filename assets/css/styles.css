@@ -22,13 +22,6 @@ a {
   text-decoration: none;
 }
 
-.fade-up-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-  will-change: opacity, transform;
-}
-
 .fade-up-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
