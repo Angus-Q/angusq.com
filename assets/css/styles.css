@@ -22,8 +22,3 @@ a {
   text-decoration: none;
 }
 
-.fade-up-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-

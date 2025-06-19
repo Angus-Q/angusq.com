@@ -9,6 +9,6 @@ document.addEventListener("DOMContentLoaded", function () {
         scale: 1.00,
         scaleMobile: 1.00,
         color: 0xffffff,
-        backgroundColor: 0x343c46
+        backgroundColor: 0xF9EBDE
     })
 });
