@@ -105,29 +105,42 @@
 
 <script>
   const form = document.querySelector('.pageclip-form');
-  const successMessage = document.getElementById('form-success-message');
-  const errorMessage = document.getElementById('form-error-message');
-  const submittingMessage = document.getElementById('form-submitting-message');
+const successMessage = document.getElementById('form-success-message');
+const errorMessage = document.getElementById('form-error-message');
+const submittingMessage = document.getElementById('form-submitting-message');
 
-  form.addEventListener('submit', function (e) {
-    // Show "submitting" message and hide others
-    submittingMessage.style.display = 'block';
-    successMessage.style.display = 'none';
-    errorMessage.style.display = 'none';
+// Add event listeners once, outside of submit handler
+form.addEventListener('pageclip:submit:success', function () {
+  submittingMessage.style.display = 'none';
+  form.style.display = 'none';
+  successMessage.style.display = 'block';
+});
 
-    // Success event
-    form.addEventListener('pageclip:submit:success', function () {
-      submittingMessage.style.display = 'none';
-      form.style.display = 'none';
-      successMessage.style.display = 'block';
-    });
+form.addEventListener('pageclip:submit:error', function () {
+  submittingMessage.style.display = 'none';
+  errorMessage.style.display = 'block';
+});
 
-    // Error event
-    form.addEventListener('pageclip:submit:error', function () {
-      submittingMessage.style.display = 'none';
-      errorMessage.style.display = 'block';
-    });
+form.addEventListener('submit', function (e) {
+  e.preventDefault(); // Prevent default form submission and redirect
+  
+  // Show "submitting" message and hide others
+  submittingMessage.style.display = 'block';
+  successMessage.style.display = 'none';
+  errorMessage.style.display = 'none';
+  
+  // Submit via Pageclip's send method instead
+  const formData = new FormData(form);
+  Pageclip.send(form.action, formData, function(error, response) {
+    if (error) {
+      // Trigger the error event manually
+      form.dispatchEvent(new Event('pageclip:submit:error'));
+    } else {
+      // Trigger the success event manually
+      form.dispatchEvent(new Event('pageclip:submit:success'));
+    }
   });
+});
 </script>
     </section>
     <footer class="text-center mt-0 pt-0 fade-up-on-scroll" style="background: #F9EBDE;">
