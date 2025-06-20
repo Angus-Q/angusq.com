@@ -13,12 +13,9 @@
     <link rel="icon" type="image/png" sizes="800x800" href="assets/img/favicon-2.png">
     <link rel="icon" type="image/png" sizes="800x800" href="assets/img/favicon-2.png">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/Cal%20Sans.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&amp;display=swap">
-    <link rel="stylesheet" href="assets/css/Pricing-Duo-badges.css">
-    <link rel="stylesheet" href="assets/css/Pricing-Duo-icons.css">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
 </head>
 
 <body style="font-family: Roboto, sans-serif;">
@@ -85,17 +82,51 @@
                 </div>
                 <div class="col-md-6 col-lg-5 col-xl-4">
                     <div>
-                        <form class="p-3 p-xl-4" method="post" action="https://send.pageclip.co/smQvQkKYIfu6iKpImljansXitSzPmqj6/contact-form">
+                        <form class="p-3 p-xl-4 pageclip-form" method="post" action="https://send.pageclip.co/smQvQkKYIfu6iKpImljansXitSzPmqj6/contact-form" data-pageclip-redirect="false">
                             <div class="mb-3"><input class="form-control" type="text" id="name-1" name="name" placeholder="Name"></div>
                             <div class="mb-3"><input class="form-control" type="email" id="email-1" name="email" placeholder="Email"></div>
                             <div class="mb-3"><textarea class="form-control" id="message-1" name="message" rows="6" placeholder="Message"></textarea></div>
-                            <div><button class="btn btn-primary d-block w-100 pageclip-form__submit" type="submit">Send </button></div>
+                            <div><button class="btn btn-primary d-block w-100 pageclip-form__submit" type="submit">Submit</button></div>
+                            <div id="form-submitting-message" style="display: none;">
+                                <p class="text-center my-3 py-0">Submitting...</p>
+                            </div>
+                            <div id="form-success-message" style="display: none; color: green;">
+                                <p class="text-center my-3 py-0">Form Submitted Successfully!</p>
+                            </div>
+                            <div id="form-error-message" style="display: none; color: red;">
+                                <p class="text-center my-3 py-0">Unsuccessful. Please Try Again Later!</p>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section><script>
+  const form = document.querySelector('.pageclip-form');
+  const successMessage = document.getElementById('form-success-message');
+  const errorMessage = document.getElementById('form-error-message');
+  const submittingMessage = document.getElementById('form-submitting-message');
+
+  form.addEventListener('submit', function (e) {
+    // Show "submitting" message and hide others
+    submittingMessage.style.display = 'block';
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+
+    // Success event
+    form.addEventListener('pageclip:submit:success', function () {
+      submittingMessage.style.display = 'none';
+      form.style.display = 'none';
+      successMessage.style.display = 'block';
+    });
+
+    // Error event
+    form.addEventListener('pageclip:submit:error', function () {
+      submittingMessage.style.display = 'none';
+      errorMessage.style.display = 'block';
+    });
+  });
+</script>
     <footer class="text-center mt-0 pt-0 fade-up-on-scroll" style="background: #F9EBDE;">
         <div class="container text-white py-4 py-lg-5">
             <ul class="list-inline">
@@ -117,8 +148,7 @@
         </div>
     </footer>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-    <script src="assets/js/fade-scroll.js"></script>
-    <script src="assets/js/topo.js"></script>
+    <script src="assets/js/script.min.js"></script>
 </body>
 
 </html>
